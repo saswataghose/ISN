@@ -23,6 +23,7 @@
  */
 package org.rsna.isn.ctp.xds.receiver;
 
+import org.openhealthtools.ihe.xds.consumer.query.MalformedQueryException;
 import org.openhealthtools.ihe.xds.consumer.storedquery.MalformedStoredQueryException;
 import org.openhealthtools.ihe.xds.consumer.storedquery.StoredQuery;
 /**
@@ -45,12 +46,14 @@ public class GetSubmissionSetAndContentsQuery extends StoredQuery implements
 		if(docID == null){
 			throw new MalformedStoredQueryException("Null submission set ID. Cannot proceed with query.");
 		}
+		
+		String clause = "'" + docID + "'";
 
 		if(isUUID){
-			this.queryParameters.put(StoredQueryConstantsExt.SS_ENTRY_UUID, docID);
+			this.queryParameters.put(StoredQueryConstantsExt.SS_ENTRY_UUID, clause);
 		}
 		else{
-			this.queryParameters.put(StoredQueryConstantsExt.SS_UNIQUE_ID, docID);
+			this.queryParameters.put(StoredQueryConstantsExt.SS_UNIQUE_ID, clause);
 		}
 	}
 
